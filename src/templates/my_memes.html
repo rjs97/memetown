@@ -1,0 +1,64 @@
+<html>
+<head>
+	<title>Columbia Buy Sell Memes</title>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="{{url_for('static', filename = 'memes.css')}}">
+
+	<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="{{url_for('static', filename='memes.js')}}"></script>
+
+	<script>
+		mine = {{mine|tojson}}
+		$(document).ready(function(){
+			$("#search_query").keypress(function(e){
+				if (e.which == 13) {
+					searchMyMemes()
+				}
+			})
+			display_memes(mine)
+		})
+
+		var add_buttons = function(figure, id){
+			var download_button = $("<button class='btn btn-secondary' + data-id= " + id + "'>Download this meme!</button>")
+			$(figure).append(download_button)
+
+			$(download_button).click(function(){
+				console.log('not yet implemented')
+			})
+			return figure
+		}
+	</script>
+
+</head>
+<body>
+<div class="wrapper">
+<nav class="navbar navbar-light bg-light" id="sidebar">
+	<div class="sidebar-header">
+		<h3 class="mb-3"><a href="./">Home</a></h3>
+	</div>
+
+	<ul class="list-unstyled components">
+		<li class="mb-3"><a href='./buy'>Buy Memes</a></li>
+		<li class="mb-3"><a href='./sell'>Sell Memes</a></li>
+		<li class="mb-3"><a href='./memepage'>Buy AND Sell</a></li>
+		<li class="mb-3"><a href='./my_memes'>My Memes</a></li>
+	</ul>
+</nav>
+<div class="container mb-5">
+	<h1 style="display: inline-block;">Columbia Buy Sell Memes</h1>
+	<h4 style="color: maroon;">Your purchased memes:</h4>
+<!-- 	<div class="input-group col-md-4" id="search" style="float: right; padding: 10px">
+		<input type="text" class="form-control" id="search_query" maxlength="400" placeholder="Search (ex: kombucha girl)">
+		<div class="input-group-append">
+			<button class="btn btn-outline-secondary" id="do_search" onclick="searchMemes()">Go</button>
+		</div>
+	</div> -->
+	<br>
+	<div id="memes">
+	</div>
+</div>
+</div>
+</body>
+</html>

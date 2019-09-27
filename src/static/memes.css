@@ -1,0 +1,33 @@
+figure {
+	display: inline-grid;
+	margin: 20px;
+	width: 200px;
+}	
+
+figure img {
+	vertical-align: top;
+	width: 200px;
+}
+figure figcaption {
+	display: table-caption;
+	caption-side: bottom;
+	border: 1px solid black;
+	text-align: center;
+}
+
+#sidebar {
+	width: 140px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	z-index: 999;
+}
+
+.navbar + .container {
+	padding-left: 160px;
+}
+.wrapper {
+	display: flex;
+	width: 100%;
+}
