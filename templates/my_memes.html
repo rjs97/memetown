@@ -1,36 +1,36 @@
 <html>
 <head>
-	<title>Columbia Buy Sell Memes</title>
+	<title>Memetown Marketplace</title>
 
-	<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 
 	<link rel="stylesheet" href="{{url_for('static', filename = 'memes.css')}}">
+
+	<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="{{url_for('static', filename='memes.js')}}"></script>
 
 	<script>
-		memes = {{memes|tojson}}
+		mine = {{mine|tojson}}
 		$(document).ready(function(){
 			$("#search_query").keypress(function(e){
 				if (e.which == 13) {
-					searchMemes()
+					searchMyMemes()
 				}
 			})
-			display_memes(memes)
+			display_memes(mine)
 		})
 
 		var add_buttons = function(figure, id){
-			var buy_button = $("<button class='btn btn-primary' data-id='" + id + "'>Buy this meme!</button>")
-			$(figure).append(buy_button)
+			var download_button = $("<button class='btn btn-secondary' + data-id= " + id + "'>Download this meme!</button>")
+			$(figure).append(download_button)
 
-			$(buy_button).click(function() {
-				var button_id = $(this).data("id")
-				buy_meme(button_id)
+			$(download_button).click(function(){
+				console.log('not yet implemented')
 			})
 			return figure
 		}
 	</script>
-	
+
 </head>
 <body>
 <div class="wrapper">
@@ -46,24 +46,19 @@
 		<li class="mb-3"><a href='./my_memes'>My Memes</a></li>
 	</ul>
 </nav>
-
 <div class="container mb-5">
-	<h1 id="title" style="display: inline-block;">Columbia Buy Sell Memes</h1>
-	<h4 style="color: maroon;">Clicking on "Buy this meme!" will save the selected meme to your personal meme collection, accessible under "My Memes"</h4>
-	<div class="input-group col-md-4" id="search" style="float: right; padding: 10px">
-		<input type="text" class="form-control" id="search_query" maxlength="400" placeholder="Search titles and captions">
+	<h1 style="display: inline-block;">Memetown Marketplace</h1>
+	<h4 style="color: maroon;">Your purchased memes:</h4>
+<!-- 	<div class="input-group col-md-4" id="search" style="float: right; padding: 10px">
+		<input type="text" class="form-control" id="search_query" maxlength="400" placeholder="Search (ex: kombucha girl)">
 		<div class="input-group-append">
 			<button class="btn btn-outline-secondary" id="do_search" onclick="searchMemes()">Go</button>
 		</div>
+	</div> -->
+	<br>
+	<div id="memes">
 	</div>
-
-<div id="user_info">
-</div>
-<br>
-<div id="memes">
-</div>
-
 </div>
 </div>
-</body>	
+</body>
 </html>
