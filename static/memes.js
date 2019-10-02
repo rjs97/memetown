@@ -3,26 +3,32 @@ var change_id;
 var display_memes = function(memes){
 	$("#user_info").empty()
 
-	console.log(memes)
-
 	if (memes.length == null || memes.length == 0) {
 		$("#memes").append("<h5> No memes found <h5>")
 	} else {
 		memes.reverse()
 		$.each(memes, function(i, meme) {
-			var figure = $("<figure>")
-
+			var figure = document.createElement("figure")
 			var image = document.createElement("img")
+			var id = meme["id"]
+			var caption = meme["caption"]
+
+			figure.id = "figure" + id
 			image.src = meme["photo"]
+			// var fancybox = document.createAttribute("data-fancybox")
+			// var fancycapt = document.createAttribute("data-caption")
+			// fancybox.value = "images"
+			// fancycapt.value = meme["caption"]
+			// image.setAttributeNode(fancybox)
+			// image.setAttributeNode(fancycapt)
 			$(figure).append(image)
 
 			var figcaption = $("<figcaption>")
 			$(figcaption).append("<h5>" + meme["title"] + "</h5>")
-			$(figcaption).append(meme["caption"])
+			$(figcaption).append(caption)
 			$(figcaption).append("<br> $" + meme["price"])
 			$(figure).append(figcaption)
 
-			var id = meme["id"]
 			figure = add_buttons(figure, id)
 
 			$("#memes").append(figure)
@@ -163,10 +169,7 @@ var resetMeme = function(sold){
 	var title = document.getElementById("alternate_title").value
 	var price = document.getElementById("alternate_price").value
 	var caption = document.getElementById("alternate_caption").value
-	console.log("new title: " + title)
-	console.log("new caption: " + caption)
-	console.log("new price: " + price)
-	console.log("id to change: " + change_id)
+
 	if (sold) {
 		update_sold_memes(title, caption, price, change_id)
 	} else {

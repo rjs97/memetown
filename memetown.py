@@ -40,8 +40,8 @@ memes = [
 	{
 		"id": 5,
 		"title": "james shapiro 101",
-		"caption": "price is number of plays i read",
-		"price": 2,
+		"caption": "price is percent of plays i read",
+		"price": 15,
 		"photo": "/static/img/but soft.jpeg"
 	},
 	{
@@ -110,7 +110,7 @@ memes = [
 	{
 		"id": 15,
 		"title": "i'm bitches",
-		"caption": "because who wants to go to a women's college",
+		"caption": "",
 		"price": 0,
 		"photo": "/static/img/i'm bitches.PNG"
 	},
@@ -267,7 +267,7 @@ def sell_meme():
 	sold_memes.append(meme_data)
 	memes.append(meme_data)
 
-	return jsonify(memes = memes, sold_memes = sold_memes)
+	return jsonify(sold_memes = sold_memes)
 
 
 @app.route('/buy_meme', methods=['GET', 'POST'])
