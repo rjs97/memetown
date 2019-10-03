@@ -129,6 +129,7 @@ var displayMemesByUser = function(saved){
 
 				figure.id = "figure" + id
 				image.src = meme["photo"]
+				image.id = "img" + id
 				$(figure).append(image)
 
 				var figcaption = $("<figcaption>")
@@ -137,7 +138,7 @@ var displayMemesByUser = function(saved){
 				$(figcaption).append("<br> $" + meme["price"])
 				$(figure).append(figcaption)
 
-				figure = add_buttons(figure, id)
+				figure = add_buttons(figure, id, image.src, meme["title"])
 
 				$(user_div).append(figure)
 			})
