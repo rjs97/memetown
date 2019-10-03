@@ -53,12 +53,18 @@
 		}
 
 		var submit_to_buy = function(button_id) {
-			$("#add_user").modal('hide')
 			var user = $("#user_list").val()
 			if (user == 'other') {
 				user = $("#add_name").val()
 			}
-			buy_meme(button_id, user)
+			if ($.trim(user).length < 4) {
+				alert("Please use at least three characters in your username")
+				$("#add_name").val("")
+				$("#add_name").focus()
+			} else {
+				$("#add_user").modal('hide')
+				buy_meme(button_id, user)
+			}
 		}
 
 	</script>
@@ -112,7 +118,7 @@
 				</div>
 			</div>
 			<div class="modal-footer d-flex justify-content-center">
-				<button class="btn btn-outline-secondary" id="submit_user" data-dismiss="modal">Submit</button>
+				<button class="btn btn-outline-secondary" id="submit_user">Submit</button>
 			</div>
 		</div>
 	</div>
