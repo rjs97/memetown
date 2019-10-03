@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import Response, request, jsonify
+from collections import OrderedDict
 import re
 import utils as utils
 
@@ -223,21 +224,25 @@ memes = [
 
 sold_memes = []
 
-mine = []
+saved = { "Jaya" : [{
+		"id": 29,
+		"title": "YEET",
+		"caption": "teach em young",
+		"price": 6,
+		"photo": "/static/img/yearn for educational excellence.jpg"
+	},
+	{
+		"id": 30,
+		"title": "hamlet (abridged)",
+		"caption": "",
+		"price": 48,
+		"photo": "/static/img/yeet the fuck off this mortal coil.PNG"
+	},], "Summer" : [], "Alison" : [], "Josh" : []}
 
 @app.route('/')
 @app.route('/index.html')
 def index():
 	return render_template('index.html')
-
-@app.route('/load')
-def load():
-	utils.write_data('memes', memes)
-	return "<h1 style='color:blue'>Hello There!</h1>"
-
-@app.route('/memepage')
-def memepage():
-	return render_template('memepage.html', memes = memes)
 
 @app.route('/sell')
 def sell():
@@ -245,15 +250,11 @@ def sell():
 
 @app.route('/buy')
 def buy():
-	print('buy:')
-	print(len(memes))
-	return render_template('buy.html', memes = memes)
+	return render_template('buy.html', memes = memes, saved = saved)
 
 @app.route('/my_memes')
 def my_memes():
-	print('my_memes:')
-	print(len(mine))
-	return render_template('my_memes.html', mine = mine)
+	return render_template('my_memes.html', saved = saved)
 
 @app.route('/sell_meme', methods=['GET', 'POST'])
 def sell_meme():
@@ -274,10 +275,12 @@ def sell_meme():
 def buy_meme():
 	print("buying a meme")
 	global memes
+	global saved
 
 	json_to_buy = request.get_json()
 
 	id_to_buy = int(json_to_buy["id"])
+	user = json_to_buy["user"]
 
 	deleting = None
 	for (i, m) in enumerate(memes):
@@ -288,10 +291,12 @@ def buy_meme():
 			break
 	if deleting is not None:
 		print("finalizing your purchase of meme, id: ", deleting)
-		mine.append(memes[deleting])
+		saved[user].append(memes[deleting])
+		print(user)
+		print(saved[user])
 		del memes[deleting]
 
-	return jsonify(memes = memes)
+	return jsonify(memes = memes, saved = saved)
 
 @app.route('/update_meme', methods=['GET', 'POST'])
 def change_meme():
@@ -301,7 +306,7 @@ def change_meme():
 	json_to_change = request.get_json()
 	id_to_change = int(json_to_change["id"])
 
-	for (i, m) in enumerate(memes):
+	for (i, m) in enumerate(sold_memes):
 		meme_id = m["id"]
 		if meme_id == id_to_change:
 			if json_to_change["title"]:
@@ -315,7 +320,7 @@ def change_meme():
 				print("price changed!")
 			break
 
-	return jsonify(sold_memes = sold_memes, memes = memes)
+	return jsonify(sold_memes = sold_memes)
 
 
 @app.route('/search', methods=['GET', 'POST'])
@@ -330,10 +335,10 @@ def search():
 	print(search_term)
 
 	for (i, m) in enumerate(memes):
-		if re.search(r'\b' + search_term + r'\b', m["title"]):
+		if re.search(r'\b' + search_term + r'\b', m["title"], re.IGNORECASE):
 			results.append(m)
 			print(m["title"])
-		elif re.search(r'\b' + search_term + r'\b', m["caption"]):
+		elif re.search(r'\b' + search_term + r'\b', m["caption"], re.IGNORECASE):
 			results.append(m)
 			print(m["caption"])
 
