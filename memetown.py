@@ -206,20 +206,6 @@ memes = [
 		"price": 2020,
 		"photo": "/static/img/worst trade deal.jpg"
 	},
-	{
-		"id": 29,
-		"title": "YEET",
-		"caption": "teach em young",
-		"price": 6,
-		"photo": "/static/img/yearn for educational excellence.jpg"
-	},
-	{
-		"id": 30,
-		"title": "hamlet (abridged)",
-		"caption": "",
-		"price": 48,
-		"photo": "/static/img/yeet the fuck off this mortal coil.PNG"
-	},
 ]
 
 sold_memes = []
@@ -237,7 +223,7 @@ saved = { "Jaya" : [{
 		"caption": "",
 		"price": 48,
 		"photo": "/static/img/yeet the fuck off this mortal coil.PNG"
-	},], "Summer" : [], "Alison" : [], "Josh" : []}
+	},]}
 
 @app.route('/')
 @app.route('/index.html')
@@ -282,6 +268,9 @@ def buy_meme():
 	id_to_buy = int(json_to_buy["id"])
 	user = json_to_buy["user"]
 
+	if (user not in saved.keys()):
+		saved.update({user : []})
+
 	deleting = None
 	for (i, m) in enumerate(memes):
 		meme_id = m["id"]
@@ -290,9 +279,8 @@ def buy_meme():
 
 			break
 	if deleting is not None:
-		print("finalizing your purchase of meme, id: ", deleting)
+		print("finalizing your purchase of meme, ", user)
 		saved[user].append(memes[deleting])
-		print(user)
 		print(saved[user])
 		del memes[deleting]
 

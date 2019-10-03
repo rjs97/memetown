@@ -31,3 +31,8 @@ figure figcaption {
 	display: flex;
 	width: 100%;
 }
+
+.ui-selectmenu-menu {
+	z-index: 9999;
+	width: 100px;
+}

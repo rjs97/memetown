@@ -15,6 +15,7 @@
 	<script>
 		memes = {{memes|tojson}}
 		saved = {{saved|tojson}}
+
 		$(document).ready(function(){
 			$("#search_query").keypress(function(e){
 				if (e.which == 13) {
@@ -23,7 +24,6 @@
 			})
 			addUsers(Object.keys(saved))
 			display_memes(memes)
-			console.log(saved)
 		})
 
 		var add_buttons = function(figure, id){
@@ -32,14 +32,35 @@
 
 			$(buy_button).click(function() {
 				var button_id = $(this).data("id")
-				$(submit_user).click(function() {
-					$("#add_user").modal('hide')
-					var user = document.getElementById("user_list").value
-					buy_meme(button_id, user)
+				$(".hide").hide()
+				$("#user_list").selectmenu({ width : "175"})
+				$("#user_list").on("selectmenuchange", function() {
+					if ($("#user_list").val() == 'other') {
+						$(".hide").show()
+						$(".hide").focus()
+					} 
+				})
+				$(submit_user).click(function(){
+					submit_to_buy(button_id)
+				})
+				$("#add_name").keypress(function(e){
+					if (e.which == 13) {
+						submit_to_buy(button_id)
+					}
 				})
 			})
 			return figure
 		}
+
+		var submit_to_buy = function(button_id) {
+			$("#add_user").modal('hide')
+			var user = $("#user_list").val()
+			if (user == 'other') {
+				user = $("#add_name").val()
+			}
+			buy_meme(button_id, user)
+		}
+
 	</script>
 	
 </head>
@@ -84,9 +105,10 @@
 			</div>
 			<div class="modal-body mx-3 text-center">
 				<div class="md-form mb-3">
-					<label for="user_list">Select a User</label>
+					<label for="user_list">Select a User: </label>
 					<select name="users" id="user_list">
 					</select>
+					<input type="text" class="hide" id="add_name" maxlength="100" placeholder="Your name">
 				</div>
 			</div>
 			<div class="modal-footer d-flex justify-content-center">

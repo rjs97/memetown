@@ -147,10 +147,14 @@ var displayMemesByUser = function(saved){
 
 var addUsers = function(users){
 	$("#user_list").empty()
+	$("#user_list").append("<option disabled selected> Save to a user </option>")
 	$.each(users, function(i, user) {
-		var option = "<option>" + user + "</option>"
+		var option = "<option value=" + user + ">" + user + "</option>"
 		$("#user_list").append(option)
 	})
+	var other = "<option value=other>Add User</option>"
+	$("#user_list").append(other)
+
 }
 
 var submitMeme = function(){
@@ -238,6 +242,7 @@ var buy_meme = function(id, user){
 			display_memes(memes)
 			$("#user_info").append("<h3>Meme bought!</h3>")
 			$("#user_info").focus()
+			$("#add_name").val("")
 		},
 		error: function(request, status, error){
 			console.log("Error");
