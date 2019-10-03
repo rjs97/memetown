@@ -116,7 +116,7 @@ var createUserTabs = function(users){
 var displayMemesByUser = function(saved){
 	for (let [user, content] of Object.entries(saved)) {
 		var user_div = "#" + user
-		(user_div).empty()
+		$(user_div).empty()
 		if (content.length == null || content.length == 0) {
 			$(user_div).append("<h5> No memes found <h5>")
 		} else {
