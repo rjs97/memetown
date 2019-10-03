@@ -36,3 +36,8 @@ figure figcaption {
 	z-index: 9999;
 	width: 100px;
 }
+
+a.download-button {
+	width: 200px;
+	display: inline-grid;
+}

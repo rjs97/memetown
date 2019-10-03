@@ -23,12 +23,29 @@
 			displayMemesByUser(saved)
 		})
 
-		var add_buttons = function(figure, id){
-			var download_button = $("<button class='btn btn-secondary' + data-id= " + id + "'>Download this meme!</button>")
+		var add_buttons = function(figure, id, src, title){
+			var download_button = "<a class='download-button' href='" + src + "' download='" + title + ".jpg'><button class='btn btn-secondary' data-id='" + id + "'>Download this Meme!</button></a>"
+
+			// var download_button = document.createElement("button")
+			// var button_class = document.createAttribute("class")
+			// button_class.value = "btn btn-secondary"
+			// download_button.setAttributeNode(button_class)
+			
+			// var data_id = document.createAttribute("data-id")
+			// data_id.value = id
+			// download_button.setAttributeNode(data_id)
+
+			// var href = download_button.href = src
+			
+			// download_button.appendChild(document.createTextNode("Download this meme!"))
+			
+
 			$(figure).append(download_button)
 
 			$(download_button).click(function(){
-				console.log('not yet implemented')
+				var button_id = $(this).data("id")
+				console.log(button_id)
+				console.log($("#img" + id).attr('src'))
 			})
 			return figure
 		}

@@ -116,7 +116,7 @@ var createUserTabs = function(users){
 var displayMemesByUser = function(saved){
 	for (let [user, content] of Object.entries(saved)) {
 		var user_div = "#" + user
-		(user_div).empty()
+		$(user_div).empty()
 		if (content.length == null || content.length == 0) {
 			$(user_div).append("<h5> No memes found <h5>")
 		} else {
@@ -129,6 +129,7 @@ var displayMemesByUser = function(saved){
 
 				figure.id = "figure" + id
 				image.src = meme["photo"]
+				image.id = "img" + id
 				$(figure).append(image)
 
 				var figcaption = $("<figcaption>")
@@ -137,7 +138,7 @@ var displayMemesByUser = function(saved){
 				$(figcaption).append("<br> $" + meme["price"])
 				$(figure).append(figcaption)
 
-				figure = add_buttons(figure, id)
+				figure = add_buttons(figure, id, image.src, meme["title"])
 
 				$(user_div).append(figure)
 			})
